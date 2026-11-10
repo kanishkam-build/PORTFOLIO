@@ -1,0 +1,868 @@
+<!DOCTYPE html><html class="dark scroll-smooth" lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_standard" name="shell-type"><title>Kanishka Maran | Portfolio</title><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;background-color:#0d051a;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.gold-shimmer{background:linear-gradient(90deg,rgba(212,175,55,0.1) 0%,rgba(243,208,104,0.3) 50%,rgba(212,175,55,0.1) 100%);background-size:200% 100%;animation:shimmer 4s infinite linear;}
+@keyframes scanline{0%{transform:translateY(-100%)}100%{transform:translateY(1000%)}}
+.scanline-anim{animation:scanline 8s linear infinite;}
+@keyframes pulse-glow{0%,100%{box-shadow:0 0 15px rgba(212,175,55,0.22),inset 0 0 10px rgba(212,175,55,0.05)}50%{box-shadow:0 0 32px rgba(243,208,104,0.45),inset 0 0 18px rgba(212,175,55,0.16)}}
+.cyber-glow{animation:pulse-glow 3.5s ease-in-out infinite;}
+
+/* Playful & Quirky Animations */
+@keyframes float-wobble{0%,100%{transform:translateY(0px) rotate(0deg)}25%{transform:translateY(-5px) rotate(-2deg)}75%{transform:translateY(3px) rotate(2.5deg)}}
+.float-sticker{animation:float-wobble 4.5s ease-in-out infinite;display:inline-block;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);}
+.float-sticker:hover{transform:scale(1.15) rotate(6deg)!important;cursor:pointer;}
+
+@keyframes orbital-spin{0%{transform:rotate(0deg) translateX(12px) rotate(0deg)}100%{transform:rotate(360deg) translateX(12px) rotate(-360deg)}}
+.orbit-dot{animation:orbital-spin 5s linear infinite;}
+
+@keyframes confetti-burst{0%{transform:translate(0,0) scale(1);opacity:1;}100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0;}}
+.confetti-particle{position:absolute;width:6px;height:6px;border-radius:50%;pointer-events:none;animation:confetti-burst 0.75s ease-out forwards;}
+
+.spring-card{perspective:1000px;transition:all 0.35s cubic-bezier(0.34,1.4,0.64,1);}
+.spring-card:hover{transform:translateY(-5px) scale(1.018);box-shadow:0 12px 30px -8px rgba(212,175,55,0.28);border-color:rgba(243,208,104,0.75);}
+
+.cyber-card{transition:all 0.28s cubic-bezier(0.16,1,0.3,1);}
+.cyber-card:hover{transform:translateY(-3px);box-shadow:0 0 30px rgba(212,175,55,0.24);border-color:rgba(243,208,104,0.65);}
+@keyframes radar-spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.radar-sweep{animation:radar-spin 4s linear infinite;}
+canvas#webgl-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.42;}
+</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "surface-container": "#1f1236",
+          "outline-variant": "#4d4635",
+          "on-secondary-container": "#c4abff",
+          "background": "#0d051a",
+          "primary-container": "#d4af37",
+          "surface": "#140a24",
+          "surface-container-high": "#271742",
+          "on-primary-container": "#554300",
+          "on-primary": "#241a00",
+          "inverse-on-surface": "#362b49",
+          "surface-container-highest": "#331f54",
+          "on-secondary-fixed-variant": "#5516be",
+          "primary-fixed": "#ffe088",
+          "tertiary-fixed-dim": "#e1c561",
+          "primary": "#f3d068",
+          "tertiary": "#e9cd67",
+          "on-secondary": "#3c0091",
+          "surface-container-lowest": "#0a0314",
+          "error-container": "#93000a",
+          "on-tertiary-container": "#534400",
+          "error": "#ffb4ab",
+          "surface-tint": "#f3d068",
+          "on-primary-fixed-variant": "#574500",
+          "surface-dim": "#140a24",
+          "inverse-primary": "#735c00",
+          "surface-variant": "#2b1945",
+          "outline": "#99907c",
+          "on-background": "#ebdcff",
+          "on-tertiary-fixed": "#221b00",
+          "secondary-container": "#571bc1",
+          "surface-bright": "#3f3452",
+          "secondary": "#d0bcff",
+          "on-secondary-fixed": "#23005c",
+          "on-error": "#690005",
+          "on-error-container": "#ffdad6",
+          "primary-fixed-dim": "#e9c349",
+          "on-surface-variant": "#d0c5af",
+          "on-tertiary": "#3b2f00",
+          "inverse-surface": "#ebdcff",
+          "secondary-fixed-dim": "#d0bcff",
+          "on-primary-fixed": "#241a00",
+          "tertiary-container": "#ccb14f",
+          "tertiary-fixed": "#fee179",
+          "on-tertiary-fixed-variant": "#554500",
+          "secondary-fixed": "#e9ddff",
+          "surface-container-low": "#180e2a",
+          "on-surface": "#ebdcff"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.375rem",
+          "xl": "0.625rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "space-xs": "0.25rem",
+          "space-sm": "0.5rem",
+          "space-md": "1rem",
+          "space-lg": "1.5rem",
+          "space-xl": "2.5rem",
+          "margin-mobile": "1rem",
+          "gutter-mobile": "0.75rem",
+          "margin": "2.5rem",
+          "gutter": "1.25rem"
+        },
+        "fontFamily": {
+          "body-sm": ["Plus Jakarta Sans"],
+          "headline-lg": ["Space Grotesk"],
+          "body-md": ["Plus Jakarta Sans"],
+          "body-lg": ["Plus Jakarta Sans"],
+          "display-hero": ["Space Grotesk"],
+          "caption": ["Plus Jakarta Sans"],
+          "label-mono-lg": ["Space Mono"],
+          "headline-sm": ["Space Grotesk"],
+          "label-mono-sm": ["Space Mono"],
+          "headline-md": ["Space Grotesk"]
+        }
+      }
+    }
+  };</script></head><body class="bg-[#0d051a] font-body-md text-body-md text-on-surface min-h-screen selection:bg-[#d4af37] selection:text-[#241a00] relative overflow-x-hidden">
+<!-- Dynamic WebGL Ambient Shader Canvas -->
+<canvas height="2599" id="webgl-bg" width="1280"></canvas>
+<!-- Live Animated Status Ticker -->
+<div class="relative z-50 w-full bg-[#130825]/90 border-b border-[#d4af37]/25 py-1 px-4 text-center overflow-hidden backdrop-blur-md">
+<div class="flex items-center justify-center gap-3 text-[11px] font-mono tracking-widest text-[#f3d068] uppercase"><span class="inline-block w-2 h-2 rounded-full bg-[#f3d068] animate-ping"></span>
+<span>WELCOME // B.TECH CSIT STUDENT @ SUAS INDORE // ASPIRING SOFTWARE ENGINEER</span>
+<span class="hidden md:inline text-outline">// OPEN TO LEARNING &amp; COLLABORATION</span>
+<span class="hidden lg:inline-flex items-center gap-1 text-[#f3d068] font-bold"><span class="float-sticker" style="animation-duration:2.5s">✨</span> EXPLORING &amp; GROWING</span></div>
+</div>
+<!-- Header Navigation with Dedicated Section Anchors & LinkedIn Pill -->
+<header class="sticky top-0 w-full z-40 bg-[#0d051a]/90 backdrop-blur-xl border-b border-[#d4af37]/20">
+<div class="max-w-6xl mx-auto px-margin-mobile lg:px-margin h-16 flex items-center justify-between gap-4">
+<a class="flex items-center gap-3 group" href="#home">
+<div class="w-9 h-9 rounded-lg bg-[#251a37] border border-[#d4af37]/40 flex items-center justify-center shadow-[0_0_12px_rgba(212,175,55,0.25)] group-hover:border-[#f3d068] group-hover:rotate-6 transition-all">
+<span class="font-headline-sm font-bold text-[#f3d068]">KM</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-sm font-bold tracking-tight text-on-surface">Kanishka Maran</span>
+<span class="font-label-mono-sm text-[10px] text-[#d4af37] tracking-wider uppercase">B.Tech CSIT // SUAS</span>
+</div>
+</a>
+<!-- Primary Section Navigation Anchors -->
+<nav class="hidden md:flex items-center gap-1.5 lg:gap-2">
+<a class="px-3 py-1.5 rounded-lg bg-[#180e2a]/80 hover:bg-[#251a37] text-on-surface hover:text-[#f3d068] text-xs font-mono border border-transparent hover:border-[#d4af37]/30 transition-all flex items-center gap-1.5" href="#home">
+<span class="text-[#d4af37] text-[10px]">01 //</span>
+<span>Home</span>
+</a>
+<a class="px-3 py-1.5 rounded-lg bg-[#180e2a]/80 hover:bg-[#251a37] text-on-surface hover:text-[#f3d068] text-xs font-mono border border-transparent hover:border-[#d4af37]/30 transition-all flex items-center gap-1.5" href="#journey">
+<span class="text-[#d4af37] text-[10px]">02 //</span>
+<span>Journey</span>
+</a>
+<a class="px-3 py-1.5 rounded-lg bg-[#180e2a]/80 hover:bg-[#251a37] text-on-surface hover:text-[#f3d068] text-xs font-mono border border-transparent hover:border-[#d4af37]/30 transition-all flex items-center gap-1.5" href="#skills">
+<span class="text-[#d4af37] text-[10px]">03 //</span>
+<span>Skills</span>
+</a>
+<a class="px-3 py-1.5 rounded-lg bg-[#180e2a]/80 hover:bg-[#251a37] text-on-surface hover:text-[#f3d068] text-xs font-mono border border-transparent hover:border-[#d4af37]/30 transition-all flex items-center gap-1.5" href="#connect">
+<span class="text-[#d4af37] text-[10px]">04 //</span>
+<span>Connect</span>
+</a>
+</nav>
+<div class="flex items-center gap-2.5">
+<!-- Quirky High-Five / Digital Hello Button -->
+
+<a class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#180e2a]/80 hover:bg-[#251a37] text-on-surface hover:text-[#f3d068] text-xs font-mono border border-transparent hover:border-[#d4af37]/30 transition-all" href="https://github.com/kanishkam-build/PORTFOLIO" rel="noopener noreferrer" target="_blank" title="GitHub Repository">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+<span class="hidden lg:inline">GitHub</span>
+</a>
+<a class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#180e2a]/80 hover:bg-[#251a37] text-on-surface hover:text-[#f3d068] text-xs font-mono border border-transparent hover:border-[#d4af37]/30 transition-all" href="mailto:kanishkamaran811@gmail.com" title="Email Kanishka">
+<span class="material-symbols-outlined text-[16px]">mail</span>
+<span class="hidden lg:inline">Email</span>
+</a>
+<a class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-[#d4af37] to-[#f3d068] text-[#241a00] font-headline-sm text-xs font-bold shadow-[0_0_15px_rgba(212,175,55,0.35)] hover:brightness-110 active:scale-95 transition-all" href="https://www.linkedin.com/in/kanishka-maran-9a407542b" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-[16px]">connect_without_contact</span>
+<span>LinkedIn</span>
+<span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+</a></div>
+</div>
+</header>
+<main class="relative z-10 w-full">
+<div class="max-w-6xl mx-auto px-margin-mobile lg:px-margin py-8 flex flex-col gap-14">
+<!-- 1. SECTION: #home (HOME / HERO) -->
+<section class="scroll-mt-24 flex flex-col gap-6" id="home">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+<!-- Left Hero Pitch -->
+<div class="lg:col-span-8 flex flex-col gap-4">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#251a37]/90 border border-[#d4af37]/35 w-fit shadow-[0_0_12px_rgba(212,175,55,0.15)]">
+<span class="w-2 h-2 rounded-full bg-[#f3d068] animate-ping"></span>
+<span class="font-label-mono-sm text-[11px] text-[#f3d068] font-bold tracking-wider uppercase">01 // HOME // ENGINEER TELEMETRY</span>
+</div>
+<div>
+<h1 class="font-display-hero text-4xl sm:text-5xl lg:text-6xl font-bold text-on-surface tracking-tight leading-none">
+KANISHKA <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#f3d068] via-[#ffd56b] to-[#d4af37]">MARAN</span>
+</h1>
+<p class="font-headline-sm text-lg sm:text-xl text-[#d0bcff] font-medium mt-2">
+First-Year B.Tech CSIT Builder @ Symbiosis University of Applied Sciences (SUAS), Indore
+</p>
+</div>
+<!-- Tagline Bio Pill -->
+<p class="text-base text-on-surface/90 leading-relaxed font-body-md border-l-2 border-[#d4af37] pl-3 py-0.5"><strong class="text-[#f3d068] font-semibold">Curious student &amp; continuous learner.</strong> Currently exploring foundational computer science, C/C++ programming, web development, and problem solving. Grateful for opportunities to learn, build, and collaborate on exciting ideas.</p>
+<!-- Fun & Quirky Floating Badges Row -->
+
+<!-- Status Telemetry Badges -->
+<div class="flex flex-wrap gap-2 pt-1"><span class="float-sticker px-3 py-1.5 rounded-lg bg-[#1f1236]/90 border border-outline/35 text-xs font-mono text-on-surface-variant flex items-center gap-2 hover:border-[#f3d068] hover:text-[#f3d068] shadow-[0_0_12px_rgba(243,208,104,0.15)] hover:scale-105 transition-all" style="animation-duration: 4s;">
+  <span class="material-symbols-outlined text-[16px] text-[#f3d068] animate-pulse">terminal</span>
+  <span>SUAS CSIT (2026–Present)</span>
+</span>
+<span class="float-sticker px-3 py-1.5 rounded-lg bg-[#251a37]/95 border border-[#d4af37]/45 text-xs font-mono text-[#f3d068] flex items-center gap-2 hover:border-[#f3d068] shadow-[0_0_16px_rgba(212,175,55,0.25)] hover:scale-105 transition-all" style="animation-delay: 0.6s; animation-duration: 4.5s;">
+  <span class="material-symbols-outlined text-[16px] text-[#f3d068]">military_tech</span>
+  <span class="font-semibold">NCSC National Finalist (Govt. of India)</span>
+</span>
+<span class="float-sticker px-3 py-1.5 rounded-lg bg-[#1f1236]/90 border border-secondary/40 text-xs font-mono text-secondary flex items-center gap-2 hover:border-secondary shadow-[0_0_15px_rgba(208,188,255,0.2)] hover:scale-105 transition-all" style="animation-delay: 1.2s; animation-duration: 4.2s;">
+  <span class="material-symbols-outlined text-[16px] text-secondary">bolt</span>
+  <span class="font-medium">SIH Collegiate Division</span>
+</span></div>
+<!-- Hero CTAs: Explore Journey, View Skills, LinkedIn Profile -->
+<div class="flex flex-wrap items-center gap-3 pt-2"><a class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-[#d4af37] to-[#f3d068] hover:brightness-110 text-[#241a00] font-headline-sm text-sm font-bold flex items-center gap-2 shadow-[0_0_20px_rgba(212,175,55,0.35)] transition-all active:scale-95" href="https://www.linkedin.com/in/kanishka-maran-9a407542b" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+<span>LinkedIn Profile</span>
+<span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+</a>
+<a class="px-4 py-2.5 rounded-lg bg-[#1f1236]/90 hover:bg-[#2b1945] border border-[#d4af37]/35 text-[#f3d068] font-mono text-xs flex items-center gap-2 transition-all" href="https://github.com/kanishkam-build/PORTFOLIO" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+<span>GitHub Repo</span>
+<span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+</a>
+<a class="px-4 py-2.5 rounded-lg bg-[#1f1236]/90 hover:bg-[#2b1945] border border-secondary/35 text-secondary font-mono text-xs flex items-center gap-2 transition-all" href="#journey">
+<span class="material-symbols-outlined text-[16px]">history_edu</span>
+<span>Academic Journey</span>
+</a>
+<a class="px-4 py-2.5 rounded-lg bg-[#1f1236]/90 hover:bg-[#2b1945] border border-outline/35 text-on-surface hover:text-[#f3d068] font-mono text-xs flex items-center gap-2 transition-all" href="#skills">
+<span class="material-symbols-outlined text-[16px]">code</span>
+<span>Skills</span>
+</a></div>
+</div>
+<!-- Right HUD & Interactive Easter Egg Console Reticle Card -->
+<div class="lg:col-span-4 flex flex-col gap-3">
+<div class="relative p-5 rounded-2xl backdrop-blur-md bg-[#180e2a]/80 border border-[#d4af37]/35 shadow-[0_0_30px_rgba(0,0,0,0.4)] overflow-hidden"><div class="absolute -right-8 -top-8 w-44 h-44 rounded-full border border-[#d4af37]/20 flex items-center justify-center pointer-events-none">
+  <div class="w-28 h-28 rounded-full border border-dashed border-[#d4af37]/30 radar-sweep"></div>
+  <div class="absolute w-2 h-2 rounded-full bg-[#f3d068] orbit-dot"></div>
+</div>
+<div class="flex items-center justify-between pb-3 border-b border-[#d4af37]/20 relative z-10">
+  <div class="flex items-center gap-2">
+    <span class="w-2 h-2 rounded-full bg-[#f3d068] animate-pulse"></span>
+    <span class="font-mono text-xs uppercase tracking-wider font-bold text-[#f3d068]">ABOUT ME</span>
+  </div>
+  <span class="font-mono text-[10px] text-[#d4af37] bg-[#251a37] px-2 py-0.5 rounded border border-[#d4af37]/30 tracking-wider">QUICK SNAPSHOT</span>
+</div>
+<div class="space-y-3.5 pt-4 relative z-10">
+  <div class="flex items-center justify-between text-xs py-1 border-b border-[#d4af37]/10">
+    <span class="text-on-surface-variant font-mono">Specialization</span>
+    <span class="text-on-surface font-semibold">B.Tech CSIT (SUAS)</span>
+  </div>
+  <div class="flex items-center justify-between text-xs py-1 border-b border-[#d4af37]/10">
+    <span class="text-on-surface-variant font-mono">National Honor</span>
+    <span class="text-[#f3d068] font-bold flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">workspace_premium</span> NCSC National Finalist</span>
+  </div>
+  <div class="flex items-center justify-between text-xs py-1 border-b border-[#d4af37]/10">
+    <span class="text-on-surface-variant font-mono">Collegiate Hackathon</span>
+    <span class="text-secondary font-medium flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">bolt</span> SIH Participant</span>
+  </div>
+  <div class="flex items-center justify-between text-xs py-1 border-b border-[#d4af37]/10">
+    <span class="text-on-surface-variant font-mono">Core Disciplines</span>
+    <span class="font-mono text-[11px] text-[#f3d068] font-medium">C/C++ / Web / Python / SQL</span>
+  </div>
+  <div class="flex items-center justify-between text-xs py-1">
+    <span class="text-on-surface-variant font-mono">Focus</span>
+    <span class="px-2 py-0.5 rounded bg-[#f3d068]/20 text-[#f3d068] font-mono font-medium text-[10px] border border-[#f3d068]/30">Fundamentals &amp; Continuous Learning</span>
+  </div>
+</div>
+<a class="mt-4 pt-3 border-t border-[#d4af37]/25 flex items-center justify-between group text-xs text-on-surface hover:text-[#f3d068] transition-colors relative z-10" href="https://www.linkedin.com/in/kanishka-maran-9a407542b" rel="noopener noreferrer" target="_blank">
+  <div class="flex items-center gap-2">
+    <span class="material-symbols-outlined text-[18px] text-[#f3d068]">share</span>
+    <span class="font-mono font-medium truncate">linkedin.com/in/kanishka-maran-9a407542b</span>
+  </div>
+  <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a></div>
+</div>
+</div>
+</section>
+<!-- 2. SECTION: #journey (THE JOURNEY) -->
+<section class="scroll-mt-24 flex flex-col gap-6" id="journey">
+<!-- Prominent Dedicated Section Header -->
+<div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-[#d4af37]/30 pb-3 gap-2">
+<div>
+<div class="flex items-center gap-2 text-xs font-mono text-[#f3d068] tracking-widest uppercase mb-1">
+<span class="material-symbols-outlined text-[18px]">history_edu</span>
+<span>02 // THE JOURNEY</span>
+<span class="float-sticker text-sm" style="animation-duration:3s">🌱</span>
+</div>
+<h2 class="font-headline-md text-2xl sm:text-3xl font-bold text-on-surface tracking-tight">Academic Roots to Engineering Arena</h2>
+</div>
+<span class="font-mono text-xs text-outline uppercase tracking-wider">CHRONICLE // 4 MILESTONES</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Milestone 01: KV Sehore Schooling (ONLY place KV Sehore is mentioned) -->
+<div class="cyber-card p-5 rounded-xl backdrop-blur-md bg-[#180e2a]/75 border border-[#d4af37]/30 flex flex-col justify-between">
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded bg-[#251a37] text-[#f3d068] text-[11px] font-mono border border-[#d4af37]/20 flex items-center gap-1">
+<span>🏫</span> 01 // ACADEMIC ROOT
+</span>
+<span class="text-xs font-mono text-outline">FOUNDATIONAL</span>
+</div>
+<h3 class="font-headline-sm text-lg font-bold text-on-surface">Kendriya Vidyalaya Sehore (PCM + CS)</h3>
+<ul class="text-xs sm:text-sm text-on-surface-variant space-y-1.5 mt-1">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-[#f3d068] shrink-0 mt-0.5">check_circle</span>
+<span>Formative schooling rooted in physics problem-solving and analytical mathematics rigor.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-[#f3d068] shrink-0 mt-0.5">check_circle</span>
+<span>Graduated Class 12 with Computer Science specialization, establishing early algorithmic logic.</span>
+</li>
+</ul>
+</div>
+<div class="mt-4 pt-2 border-t border-[#d4af37]/15 flex items-center justify-between text-[11px] font-mono text-[#d0bcff]">
+<span>FOUNDATIONAL DISCIPLINE</span>
+<span class="text-[#f3d068]">CLASS 12 (2025)</span>
+</div>
+</div>
+<!-- Milestone 02: NCSC Open Nationals -->
+<div class="cyber-card p-5 rounded-xl backdrop-blur-md bg-[#180e2a]/75 border border-[#d4af37]/45 flex flex-col justify-between relative overflow-hidden bg-gradient-to-br from-[#180e2a]/90 via-[#22133a]/80 to-[#180e2a]/90 shadow-[0_0_20px_rgba(212,175,55,0.12)]">
+<div class="absolute -right-6 -bottom-6 w-28 h-28 bg-[#d4af37]/10 rounded-full blur-xl pointer-events-none"></div>
+<div class="flex flex-col gap-2 relative z-10">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded bg-[#f3d068]/20 text-[#f3d068] text-[11px] font-mono font-bold border border-[#f3d068]/40 flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">workspace_premium</span>
+02 // NATIONAL APEX MERIT
+</span>
+<span class="text-xs font-mono text-[#f3d068]">GOVT. OF INDIA</span>
+</div>
+<h3 class="font-headline-sm text-lg font-bold text-on-surface">National Children's Science Congress (NCSC)</h3>
+<ul class="text-xs sm:text-sm text-on-surface-variant space-y-1.5 mt-1">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-[#f3d068] shrink-0 mt-0.5">verified</span>
+<span>Selected at the apex open national level under the Ministry / Dept. of Science &amp; Technology, Govt. of India.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-[#f3d068] shrink-0 mt-0.5">verified</span>
+<span>Defended empirical data models, statistical assumptions, and scientific methodologies before premier national evaluators.</span>
+</li>
+</ul>
+</div>
+<div class="mt-4 pt-2 border-t border-[#d4af37]/20 flex items-center justify-between text-[11px] font-mono text-[#f3d068] relative z-10 font-bold">
+<span>SCIENTIFIC RIGOR DEFENSE</span>
+<span class="flex items-center gap-1">NATIONAL FINALIST 🏆</span>
+</div>
+</div>
+<!-- Milestone 03: SUAS Indore B.Tech CSIT -->
+<div class="cyber-card p-5 rounded-xl backdrop-blur-md bg-[#180e2a]/75 border border-[#d4af37]/30 flex flex-col justify-between">
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded bg-[#251a37] text-secondary text-[11px] font-mono border border-secondary/30 flex items-center gap-1">
+<span>🎓</span> 03 // UNDERGRADUATE ACTIVE
+</span>
+<span class="text-xs font-mono text-outline">2026 — PRESENT</span>
+</div>
+<h3 class="font-headline-sm text-lg font-bold text-on-surface">Symbiosis (SUAS Indore) B.Tech CSIT</h3>
+<ul class="text-xs sm:text-sm text-on-surface-variant space-y-1.5 mt-1">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary shrink-0 mt-0.5">check_circle</span>
+<span>Deep dive into low-level C memory pointers, manual heap allocation, and structured hardware interfacing.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary shrink-0 mt-0.5">check_circle</span>
+<span>Constructing Python automation pipelines and relational database schemas with strict normalization.</span>
+</li>
+</ul>
+</div>
+<div class="mt-4 pt-2 border-t border-[#d4af37]/15 flex items-center justify-between text-[11px] font-mono text-[#d0bcff]">
+<span>SYSTEMS &amp; ARCHITECTURE</span>
+<span class="text-secondary font-bold">UNDERGRADUATE FOUNDATIONS</span>
+</div>
+</div>
+<!-- Milestone 04: Smart India Hackathon (SIH) -->
+<div class="cyber-card p-5 rounded-xl backdrop-blur-md bg-[#180e2a]/75 border border-[#d4af37]/35 flex flex-col justify-between relative overflow-hidden">
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded bg-[#251a37] text-[#f3d068] text-[11px] font-mono border border-[#d4af37]/30 flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">code_blocks</span>
+04 // RAPID PROTOTYPING
+</span>
+<span class="text-xs font-mono text-[#f3d068] font-bold">36-HR SPRINT</span>
+</div>
+<h3 class="font-headline-sm text-lg font-bold text-on-surface">Smart India Hackathon (SIH) Collegiate Division</h3>
+<ul class="text-xs sm:text-sm text-on-surface-variant space-y-1.5 mt-1">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-[#f3d068] shrink-0 mt-0.5">bolt</span>
+<span>AI-Based Virtual Camera Tracking System for coarse alignment of mobile Free Space Optical Communication (FSOC) terminals.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-[#f3d068] shrink-0 mt-0.5">bolt</span>
+<span>Engineered targeting logic under intensive 36-hour sprint pressure, collaborating across hardware and computer vision pipelines.</span>
+</li>
+</ul>
+</div>
+<div class="mt-4 pt-2 border-t border-[#d4af37]/15 flex items-center justify-between text-[11px] font-mono text-[#d0bcff]">
+<span>OPTICS // AI // COMPUTER VISION</span>
+<span class="text-[#f3d068] font-bold flex items-center gap-1">COLLABORATIVE SPRINT ⚡</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. SECTION: #skills (SKILLS & CAPABILITIES) -->
+<section class="scroll-mt-24 flex flex-col gap-6" id="skills">
+<!-- Prominent Dedicated Section Header -->
+<div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-[#d4af37]/30 pb-3 gap-2">
+<div>
+<div class="flex items-center gap-2 text-xs font-mono text-[#f3d068] tracking-widest uppercase mb-1">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+<span>03 // SKILLS &amp; CAPABILITIES</span>
+<span class="float-sticker text-sm" style="animation-duration:3.2s">🛠️</span>
+</div>
+<h2 class="font-headline-md text-2xl sm:text-3xl font-bold text-on-surface tracking-tight">Technical Toolkit &amp; Foundations</h2>
+</div>
+<span class="font-mono text-xs text-outline uppercase tracking-wider">CORE_DISCIPLINES // 4 PILLARS</span>
+</div>
+<!-- 4 Core Pillars Grid: 1. C & C++, 2. Frontend Foundations, 3. Python, 4. MySQL -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- 1st: C & C++ -->
+<div class="spring-card p-5 rounded-xl backdrop-blur-md bg-[#180e2a]/80 border border-[#d4af37]/35 flex flex-col justify-between group hover:border-[#f3d068] cursor-default">
+<div class="flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<span class="w-8 h-8 rounded-lg bg-[#251a37] border border-[#d4af37]/40 flex items-center justify-center text-[#f3d068] group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[18px]">memory</span>
+</span>
+<span class="text-[10px] font-mono text-[#f3d068] uppercase flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#f3d068] animate-ping"></span> LOW_LEVEL
+</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-base font-bold text-on-surface group-hover:text-[#f3d068] transition-colors flex items-center justify-between">
+<span>C &amp; C++</span>
+<span class="text-xs group-hover:translate-x-0.5 transition-transform">⚙️</span>
+</h3>
+<p class="text-xs text-outline font-mono mt-0.5">Systems &amp; Problem Solving</p>
+</div>
+<ul class="text-xs text-on-surface-variant space-y-1.5 pt-1">
+<li class="flex items-start gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-[#f3d068] shrink-0 mt-0.5">check_small</span>
+<span>Low-level systems fundamentals &amp; syntax</span>
+</li>
+<li class="flex items-start gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-[#f3d068] shrink-0 mt-0.5">check_small</span>
+<span>Object-oriented concepts &amp; structural design</span>
+</li>
+<li class="flex items-start gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-[#f3d068] shrink-0 mt-0.5">check_small</span>
+<span>Memory management &amp; pointer arithmetic basics</span>
+</li>
+</ul>
+</div>
+<div class="mt-4 pt-2 border-t border-[#d4af37]/15 flex items-center justify-between text-[10px] font-mono text-[#f3d068]">
+<span>CORE LANGUAGE</span>
+<span class="px-1.5 py-0.5 rounded bg-[#f3d068]/15 border border-[#f3d068]/30">ACTIVE STUDY</span>
+</div>
+</div>
+<!-- 2nd: Frontend Foundations -->
+<div class="spring-card p-5 rounded-xl backdrop-blur-md bg-[#180e2a]/80 border border-[#d4af37]/35 flex flex-col justify-between group hover:border-[#f3d068] cursor-default">
+<div class="flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<span class="w-8 h-8 rounded-lg bg-[#251a37] border border-[#d4af37]/40 flex items-center justify-center text-[#f3d068] group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[18px]">html</span>
+</span>
+<span class="text-[10px] font-mono text-outline uppercase flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#f3d068]"></span> WEB_CORE
+</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-base font-bold text-on-surface group-hover:text-[#f3d068] transition-colors flex items-center justify-between">
+<span>Frontend Foundations</span>
+<span class="text-xs group-hover:translate-x-0.5 transition-transform">🎨</span>
+</h3>
+<p class="text-xs text-outline font-mono mt-0.5">Semantic Web &amp; Responsive UI</p>
+</div>
+<ul class="text-xs text-on-surface-variant space-y-1.5 pt-1">
+<li class="flex items-start gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-[#f3d068] shrink-0 mt-0.5">check_small</span>
+<span>Semantic HTML5 &amp; accessible layouts</span>
+</li>
+<li class="flex items-start gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-[#f3d068] shrink-0 mt-0.5">check_small</span>
+<span>CSS styling, flexbox &amp; responsive grids</span>
+</li>
+<li class="flex items-start gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-[#f3d068] shrink-0 mt-0.5">check_small</span>
+<span>Clean interface design &amp; basic DOM interactions</span>
+</li>
+</ul>
+</div>
+<div class="mt-4 pt-2 border-t border-[#d4af37]/15 flex items-center justify-between text-[10px] font-mono text-[#f3d068]">
+<span>USER EXPERIENCE</span>
+<span class="px-1.5 py-0.5 rounded bg-[#f3d068]/15 border border-[#f3d068]/30">ACTIVE PRACTICE</span>
+</div>
+</div>
+<!-- 3rd: Python -->
+<div class="spring-card p-5 rounded-xl backdrop-blur-md bg-[#180e2a]/80 border border-[#d4af37]/35 flex flex-col justify-between group hover:border-[#f3d068] cursor-default">
+<div class="flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<span class="w-8 h-8 rounded-lg bg-[#251a37] border border-[#d4af37]/40 flex items-center justify-center text-[#f3d068] group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[18px]">data_object</span>
+</span>
+<span class="text-[10px] font-mono text-[#f3d068] uppercase flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#f3d068]"></span> SCRIPTING
+</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-base font-bold text-on-surface group-hover:text-[#f3d068] transition-colors flex items-center justify-between">
+<span>Python</span>
+<span class="text-xs group-hover:translate-x-0.5 transition-transform">🐍</span>
+</h3>
+<p class="text-xs text-outline font-mono mt-0.5">Automation &amp; Algorithms</p>
+</div>
+<ul class="text-xs text-on-surface-variant space-y-1.5 pt-1">
+<li class="flex items-start gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-[#f3d068] shrink-0 mt-0.5">check_small</span>
+<span>Practical automation scripting &amp; utilities</span>
+</li>
+<li class="flex items-start gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-[#f3d068] shrink-0 mt-0.5">check_small</span>
+<span>Algorithmic logic implementation &amp; parsing</span>
+</li>
+<li class="flex items-start gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-[#f3d068] shrink-0 mt-0.5">check_small</span>
+<span>Data manipulation &amp; exploratory tooling</span>
+</li>
+</ul>
+</div>
+<div class="mt-4 pt-2 border-t border-[#d4af37]/15 flex items-center justify-between text-[10px] font-mono text-[#f3d068]">
+<span>AUTOMATION</span>
+<span class="px-1.5 py-0.5 rounded bg-[#f3d068]/15 border border-[#f3d068]/30">ACTIVE PRACTICE</span>
+</div>
+</div>
+<!-- 4th: MySQL -->
+<div class="spring-card p-5 rounded-xl backdrop-blur-md bg-[#180e2a]/80 border border-secondary/35 flex flex-col justify-between group hover:border-secondary cursor-default">
+<div class="flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<span class="w-8 h-8 rounded-lg bg-[#251a37] border border-secondary/40 flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[18px]">database</span>
+</span>
+<span class="text-[10px] font-mono text-secondary uppercase flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> DATABASES
+</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-base font-bold text-on-surface group-hover:text-secondary transition-colors flex items-center justify-between">
+<span>MySQL</span>
+<span class="text-xs group-hover:translate-x-0.5 transition-transform">💾</span>
+</h3>
+<p class="text-xs text-outline font-mono mt-0.5">Relational Data Fundamentals</p>
+</div>
+<ul class="text-xs text-on-surface-variant space-y-1.5 pt-1">
+<li class="flex items-start gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-secondary shrink-0 mt-0.5">check_small</span>
+<span>Relational schema design &amp; foreign keys</span>
+</li>
+<li class="flex items-start gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-secondary shrink-0 mt-0.5">check_small</span>
+<span>Structured query logic &amp; filtering operations</span>
+</li>
+<li class="flex items-start gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-secondary shrink-0 mt-0.5">check_small</span>
+<span>Normalization principles (1NF, 2NF, 3NF)</span>
+</li>
+</ul>
+</div>
+<div class="mt-4 pt-2 border-t border-[#d4af37]/15 flex items-center justify-between text-[10px] font-mono text-secondary">
+<span>DATA INTEGRITY</span>
+<span class="px-1.5 py-0.5 rounded bg-secondary/15 border border-secondary/30">ACTIVE STUDY</span>
+</div>
+</div></div>
+<!-- The Eager Learner Manifesto Subsection -->
+<div class="cyber-card p-6 rounded-xl backdrop-blur-md bg-[#180e2a]/85 border border-[#d4af37]/30 flex flex-col md:flex-row items-stretch justify-between gap-6 relative overflow-hidden"><div class="flex-1 flex flex-col gap-3">
+<div class="flex items-center gap-2 text-[#f3d068]">
+<span class="material-symbols-outlined text-[20px]">psychology</span>
+<span class="font-mono text-xs uppercase tracking-wider font-bold">LEARNING PHILOSOPHY</span>
+<span class="float-sticker text-sm" style="animation-duration:4s">🌟</span>
+</div>
+<h3 class="font-headline-sm text-xl font-bold text-on-surface">
+Always Eager to Learn, Listen &amp; Grow.
+</h3>
+<p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed font-body-sm">
+"Believing that strong fundamentals, humility, and steady practice make a thoughtful engineer. As a first-year undergraduate, every day brings new concepts to explore and understand. Always grateful for guidance from mentors and collaboration with peers."
+</p>
+<div class="pt-2 text-xs font-mono text-[#d4af37] flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px]">construction</span>
+<span>Currently building foundational systems &amp; actively working on upcoming projects.</span>
+</div>
+</div>
+<div class="flex-1 flex flex-col justify-center space-y-2.5 md:border-l md:border-[#d4af37]/20 md:pl-6">
+<div class="flex items-center gap-2 text-xs text-on-surface">
+<span class="w-1.5 h-1.5 rounded-full bg-[#f3d068]"></span>
+<span>Open to advice, constructive feedback, and thoughtful mentorship</span>
+</div>
+<div class="flex items-center gap-2 text-xs text-on-surface">
+<span class="w-1.5 h-1.5 rounded-full bg-[#f3d068]"></span>
+<span>Dedicated focus on data structures, algorithmic concepts &amp; solid practice</span>
+</div>
+<div class="flex items-center gap-2 text-xs text-on-surface">
+<span class="w-1.5 h-1.5 rounded-full bg-[#f3d068]"></span>
+<span>Building small, reliable projects to reinforce university coursework</span>
+</div>
+<div class="pt-2 flex items-center justify-between text-xs font-mono text-[#f3d068]"><span></span><span class="font-bold flex items-center gap-1">CONTINUOUS CURIOSITY ✨</span></div>
+</div></div>
+</section>
+<!-- 4. SECTION: #connect (CONNECT & UPCOMING BUILDS) -->
+<section class="scroll-mt-24 cyber-card relative p-6 sm:p-8 rounded-2xl backdrop-blur-md bg-[#180e2a]/90 border border-[#d4af37]/45 shadow-[0_0_35px_rgba(212,175,55,0.18)] overflow-hidden cyber-glow" id="connect">
+<!-- Cyber Scanline Effect -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden opacity-20">
+<div class="w-full h-8 bg-gradient-to-b from-transparent via-[#f3d068] to-transparent scanline-anim"></div>
+</div>
+<div class="relative z-10 flex flex-col gap-6"><!-- Dedicated Section Header -->
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-[#d4af37]/25 pb-4">
+<div class="flex items-center gap-2.5">
+<span class="p-2 rounded-lg bg-[#251a37] border border-[#d4af37]/40 text-[#f3d068] shadow-[0_0_10px_rgba(212,175,55,0.25)]">
+<span class="material-symbols-outlined text-[22px]">rocket_launch</span>
+</span>
+<div>
+<div class="text-[11px] font-mono text-[#f3d068] tracking-widest uppercase flex items-center gap-1.5">
+<span>04 // CONNECT &amp; COLLABORATE</span>
+<span class="float-sticker text-xs" style="animation-duration:2.8s">🤝</span>
+</div>
+<h3 class="font-headline-sm text-xl font-bold text-on-surface">Get In Touch &amp; Forward Horizon</h3>
+</div>
+</div>
+<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-[#251a37] border border-[#d4af37]/35 text-[#f3d068] text-xs font-mono">
+<span class="w-2 h-2 rounded-full bg-[#f3d068] animate-ping"></span>
+<span>OPEN FOR CONVERSATIONS</span>
+</div>
+</div>
+<!-- Polite Intro Box -->
+<div class="p-4 rounded-xl bg-[#201438]/85 border border-[#d4af37]/30">
+<p class="font-headline-sm text-base sm:text-lg text-on-surface font-semibold leading-relaxed">
+<span class="text-[#f3d068]">Always looking forward to connecting,</span> learning from peers and mentors, and working on upcoming projects.
+</p>
+<p class="text-xs sm:text-sm text-on-surface-variant mt-2 font-body-sm leading-relaxed">
+Feel free to reach out anytime for discussions on technology, university projects, hackathons, or general advice. I would love to hear from you.
+</p>
+<p class="text-xs text-[#d4af37] font-mono mt-2 flex items-center gap-1">
+<span>✨</span> Currently building foundational systems &amp; actively working on upcoming projects.
+</p>
+</div>
+<!-- 3 Prominent Channels Glass Grid: LinkedIn, GitHub, Email -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+<!-- 1. LinkedIn Card -->
+<a class="cyber-card p-5 rounded-xl bg-gradient-to-br from-[#251a37] via-[#2f1b4a] to-[#1f1236] border-2 border-[#d4af37]/50 hover:border-[#f3d068] shadow-[0_0_20px_rgba(212,175,55,0.2)] flex flex-col justify-between gap-4 transition-all hover:scale-[1.02] active:scale-95 group text-left" href="https://www.linkedin.com/in/kanishka-maran-9a407542b" rel="noopener noreferrer" target="_blank">
+<div class="flex items-center justify-between">
+<div class="w-10 h-10 rounded-lg bg-[#0d051a] border border-[#d4af37]/40 flex items-center justify-center text-[#f3d068] group-hover:bg-[#d4af37] group-hover:text-[#241a00] group-hover:rotate-6 transition-all">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</div>
+<span class="material-symbols-outlined text-[#f3d068] text-[18px] group-hover:translate-x-1 transition-transform">arrow_outward</span>
+</div>
+<div>
+<div class="font-headline-sm text-sm font-bold text-on-surface group-hover:text-[#f3d068] transition-colors">LinkedIn Profile</div>
+<div class="font-mono text-xs text-[#f3d068] mt-0.5 truncate">Kanishka Maran</div>
+<p class="text-[11px] text-on-surface-variant mt-1.5 font-body-sm leading-normal">Professional network, academic milestones, and updates.</p>
+</div>
+<div class="pt-2 border-t border-[#d4af37]/20 flex items-center justify-between text-[11px] font-mono text-[#f3d068]">
+<span>VIEW PROFILE</span>
+<span>→</span>
+</div>
+</a>
+<!-- 2. GitHub Card -->
+<a class="cyber-card p-5 rounded-xl bg-gradient-to-br from-[#251a37] via-[#2f1b4a] to-[#1f1236] border-2 border-[#d4af37]/50 hover:border-[#f3d068] shadow-[0_0_20px_rgba(212,175,55,0.2)] flex flex-col justify-between gap-4 transition-all hover:scale-[1.02] active:scale-95 group text-left" href="https://github.com/kanishkam-build/PORTFOLIO" rel="noopener noreferrer" target="_blank">
+<div class="flex items-center justify-between">
+<div class="w-10 h-10 rounded-lg bg-[#0d051a] border border-[#d4af37]/40 flex items-center justify-center text-[#f3d068] group-hover:bg-[#d4af37] group-hover:text-[#241a00] group-hover:rotate-6 transition-all">
+<span class="material-symbols-outlined text-[20px]">code</span>
+</div>
+<span class="material-symbols-outlined text-[#f3d068] text-[18px] group-hover:translate-x-1 transition-transform">arrow_outward</span>
+</div>
+<div>
+<div class="font-headline-sm text-sm font-bold text-on-surface group-hover:text-[#f3d068] transition-colors">GitHub Repository</div>
+<div class="font-mono text-xs text-[#f3d068] mt-0.5 truncate">kanishkam-build/PORTFOLIO</div>
+<p class="text-[11px] text-on-surface-variant mt-1.5 font-body-sm leading-normal">Explore source code, active builds, and experiments.</p>
+</div>
+<div class="pt-2 border-t border-[#d4af37]/20 flex items-center justify-between text-[11px] font-mono text-[#f3d068]">
+<span>EXPLORE REPO</span>
+<span>→</span>
+</div>
+</a>
+<!-- 3. Direct Email Card -->
+<a class="cyber-card p-5 rounded-xl bg-gradient-to-br from-[#251a37] via-[#2f1b4a] to-[#1f1236] border-2 border-secondary/50 hover:border-secondary shadow-[0_0_20px_rgba(212,175,55,0.2)] flex flex-col justify-between gap-4 transition-all hover:scale-[1.02] active:scale-95 group text-left" href="mailto:kanishkamaran811@gmail.com">
+<div class="flex items-center justify-between">
+<div class="w-10 h-10 rounded-lg bg-[#0d051a] border border-secondary/40 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-[#241a00] group-hover:rotate-6 transition-all">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-[18px] group-hover:translate-x-1 transition-transform">send</span>
+</div>
+<div>
+<div class="font-headline-sm text-sm font-bold text-on-surface group-hover:text-secondary transition-colors">Direct Email</div>
+<div class="font-mono text-xs text-secondary mt-0.5 truncate">kanishkamaran811@gmail.com</div>
+<p class="text-[11px] text-on-surface-variant mt-1.5 font-body-sm leading-normal">Direct inquiries, discussions, collaboration, and feedback.</p>
+</div>
+<div class="pt-2 border-t border-secondary/20 flex items-center justify-between text-[11px] font-mono text-secondary">
+<span>WRITE EMAIL</span>
+<span>→</span>
+</div>
+</a>
+</div></div>
+</section>
+</div>
+</main>
+<!-- Compact Futuristic Footer -->
+<footer class="relative z-10 w-full bg-[#0a0314] border-t border-[#d4af37]/20 py-6 mt-8">
+<div class="max-w-6xl mx-auto px-margin-mobile lg:px-margin flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-outline"><a class="text-[#f3d068] hover:underline flex items-center gap-1" href="https://www.linkedin.com/in/kanishka-maran-9a407542b" rel="noopener noreferrer" target="_blank">
+<span>LINKEDIN</span>
+<span class="material-symbols-outlined text-[13px]">arrow_outward</span>
+</a>
+<span>•</span>
+<a class="text-[#f3d068] hover:underline flex items-center gap-1" href="https://github.com/kanishkam-build/PORTFOLIO" rel="noopener noreferrer" target="_blank">
+<span>GITHUB</span>
+<span class="material-symbols-outlined text-[13px]">arrow_outward</span>
+</a>
+<span>•</span>
+<a class="text-[#f3d068] hover:underline flex items-center gap-1" href="mailto:kanishkamaran811@gmail.com">
+<span>EMAIL</span>
+<span class="material-symbols-outlined text-[13px]">mail</span>
+</a>
+<span>•</span>
+<span>INDORE, MP, INDIA</span></div>
+</footer>
+<!-- Interactive Quirky Scripts: High-Five Confetti & Easter Egg Terminal -->
+<script>
+// 1. High-Five Interactive Sparkle Counter
+const highFiveBtn = document.getElementById('highfive-btn');
+const waveCounter = document.getElementById('wave-counter');
+let count = 0;
+if (highFiveBtn && waveCounter) {
+  highFiveBtn.addEventListener('click', (e) => {
+    count++;
+    waveCounter.textContent = count;
+    
+    // Spawn subtle gold & violet sparklers
+    const rect = highFiveBtn.getBoundingClientRect();
+    const colors = ['#f3d068', '#d4af37', '#d0bcff', '#ffffff'];
+    for (let i = 0; i < 10; i++) {
+      const p = document.createElement('span');
+      p.className = 'confetti-particle';
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const tx = (Math.random() - 0.5) * 80 + 'px';
+      const ty = (Math.random() - 0.8) * 80 + 'px';
+      p.style.backgroundColor = color;
+      p.style.setProperty('--tx', tx);
+      p.style.setProperty('--ty', ty);
+      p.style.left = (e.clientX - rect.left) + 'px';
+      p.style.top = (e.clientY - rect.top) + 'px';
+      highFiveBtn.appendChild(p);
+      setTimeout(() => p.remove(), 750);
+    }
+  });
+}
+
+// 2. Quirky Interactive Console Logs
+const runVibeBtn = document.getElementById('run-vibe-btn');
+const terminalScreen = document.getElementById('terminal-screen');
+const quirkyLogs = [
+  ["> pinging curiosity matrix...", "> curiosity_level: 9999%", "> status: learning mode active! 💡"],
+  ["> checking beverage telemetry...", "> chai: 100% brewed ☕", "> logic_gates: synchronized"],
+  ["> checking memory safety...", "> c_pointers: under control! ⚙️", "> null_pointer: averted! 🙌"],
+  ["> scanning horizons...", "> university: SUAS Indore CSIT 🎓", "> collaboration: welcome & ready! 🚀"]
+];
+let logIndex = 0;
+if (runVibeBtn && terminalScreen) {
+  runVibeBtn.addEventListener('click', () => {
+    const lines = quirkyLogs[logIndex % quirkyLogs.length];
+    logIndex++;
+    terminalScreen.innerHTML = '';
+    lines.forEach((line, idx) => {
+      setTimeout(() => {
+        const div = document.createElement('div');
+        div.className = idx === lines.length - 1 ? 'text-[#f3d068] font-bold' : 'text-[#d0bcff]';
+        div.textContent = line;
+        terminalScreen.appendChild(div);
+      }, idx * 160);
+    });
+  });
+}
+</script>
+<!-- Procedural WebGL Background Shader Script -->
+<script>
+(function() {
+  const canvas = document.getElementById('webgl-bg');
+  if (!canvas) return;
+  const gl = canvas.getContext('webgl');
+  if (!gl) return;
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  const vsSource = `
+    attribute vec2 position;
+    void main() {
+      gl_Position = vec4(position, 0.0, 1.0);
+    }
+  `;
+
+  const fsSource = `
+    precision mediump float;
+    uniform vec2 u_resolution;
+    uniform float u_time;
+
+    void main() {
+      vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+      vec2 p = uv * 2.0 - 1.0;
+      p.x *= u_resolution.x / u_resolution.y;
+
+      float t = u_time * 0.25;
+      float wave1 = sin(p.x * 2.2 + t + sin(p.y * 1.5 + t));
+      float wave2 = cos(p.y * 2.8 - t * 0.8 + cos(p.x * 1.8 + t));
+      float glow = abs(wave1 + wave2) * 0.28;
+
+      vec3 deepViolet = vec3(0.08, 0.03, 0.16);
+      vec3 gold = vec3(0.83, 0.68, 0.22);
+      vec3 secondaryViolet = vec3(0.34, 0.11, 0.76);
+
+      vec3 col = mix(deepViolet, secondaryViolet, clamp(wave1 * 0.4 + 0.3, 0.0, 0.7));
+      col += gold * pow(glow, 2.2) * 0.45;
+
+      gl_FragColor = vec4(col, 1.0);
+    }
+  `;
+
+  function createShader(gl, type, source) {
+    const shader = gl.createShader(type);
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    return shader;
+  }
+
+  const vs = createShader(gl, gl.VERTEX_SHADER, vsSource);
+  const fs = createShader(gl, gl.FRAGMENT_SHADER, fsSource);
+  const program = gl.createProgram();
+  gl.attachShader(program, vs);
+  gl.attachShader(program, fs);
+  gl.linkProgram(program);
+
+  const buffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+    -1, -1,
+     1, -1,
+    -1,  1,
+    -1,  1,
+     1, -1,
+     1,  1,
+  ]), gl.STATIC_DRAW);
+
+  const positionLocation = gl.getAttribLocation(program, 'position');
+  const resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
+  const timeLocation = gl.getUniformLocation(program, 'u_time');
+
+  let startTime = performance.now();
+  function render() {
+    const elapsed = (performance.now() - startTime) * 0.001;
+    gl.useProgram(program);
+    gl.enableVertexAttribArray(positionLocation);
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+    gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
+    gl.uniform1f(timeLocation, elapsed);
+
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+    requestAnimationFrame(render);
+  }
+  requestAnimationFrame(render);
+})();
+</script>
+
+
+</body></html>
